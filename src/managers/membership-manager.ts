@@ -14,10 +14,9 @@ export class MembershipManager {
 
   public async findUserMemberships(
     userId: number,
-    limit?: number,
     offset?: number
   ): Promise<Membership> {
-    return this.repo.findByUser(userId, limit, offset)
+    return this.repo.findByUser(userId, offset)
   }
 
   public create(membership: Membership): Promise<Membership> {

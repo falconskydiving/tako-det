@@ -22,7 +22,8 @@ describe('DELETE /api/v1/memberships/:id', () => {
       lastName: 'mocha',
       password: 'secret',
       shopifyId: 1234123,
-      rechargeId: 123123
+      rechargeId: 123123,
+      availableMonthlyCredit: 14.99
     }
 
     createdUser = await createUserTest(user)
@@ -32,6 +33,7 @@ describe('DELETE /api/v1/memberships/:id', () => {
   it('Should delete a membership and return 204', async () => {
     const level = {
       name: 'INSIDER ACCESS TIER',
+      stub: 'insider',
       numberOfUsers: 'Single Teacher',
       monthlyPrice: 14.99,
       annualPrice: 164.89,

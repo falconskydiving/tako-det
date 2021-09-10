@@ -21,7 +21,8 @@ describe('DELETE /api/v1/users/:id', () => {
       lastName: 'Christie',
       password: 'guymode',
       shopifyId: 123123,
-      rechargeId: 123123
+      rechargeId: 123123,
+      availableMonthlyCredit: 14.99
     })
 
     await setAdminMode('guy@gmail.com')
@@ -33,13 +34,15 @@ describe('DELETE /api/v1/users/:id', () => {
       lastName: 'test',
       password: 'test',
       shopifyId: 1234123,
-      rechargeId: 123123
+      rechargeId: 123123,
+      availableMonthlyCredit: 14.99
     })
 
     const userToken = await getLoginToken('user@gmail.com', 'test')
 
     const level = {
       name: 'INSIDER ACCESS TIER',
+      stub: 'insider',
       numberOfUsers: 'Single Teacher',
       monthlyPrice: 14.99,
       annualPrice: 164.89,
@@ -91,7 +94,8 @@ describe('DELETE /api/v1/users/:id', () => {
       lastName: 'Christie',
       password: 'guymode',
       shopifyId: 1234123,
-      rechargeId: 123123
+      rechargeId: 123123,
+      availableMonthlyCredit: 14.99
     })
 
     const user = await createUserTest({
@@ -100,7 +104,8 @@ describe('DELETE /api/v1/users/:id', () => {
       lastName: 'test',
       password: 'test',
       shopifyId: 1234123,
-      rechargeId: 123123
+      rechargeId: 123123,
+      availableMonthlyCredit: 14.99
     })
 
     const token = await getLoginToken('guy@gmail.com', 'guymode')

@@ -15,7 +15,8 @@ describe('PUT /api/v1/users/password', () => {
       lastName: 'mocha',
       password: 'secret',
       shopifyId: 1234123,
-      rechargeId: 123123
+      rechargeId: 123123,
+      availableMonthlyCredit: 14.99
     }
 
     await createUserTest(user)

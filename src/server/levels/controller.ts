@@ -41,6 +41,7 @@ export class LevelController {
     const level = await this.manager.find(ctx.params.id)
 
     level.name = levelDto.name
+    level.stub = levelDto.stub
     level.numberOfUsers = levelDto.numberOfUsers
     level.monthlyPrice = levelDto.monthlyPrice
     level.annualPrice = levelDto.annualPrice

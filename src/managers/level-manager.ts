@@ -11,8 +11,8 @@ export class LevelManager {
   public find(id: number): Promise<Level> {
     return this.repo.find(id)
   }
-  public async findAll(limit?: number, offset?: number): Promise<Level[]> {
-    return this.repo.findAll(limit, offset)
+  public async findAll(offset?: number): Promise<Level[]> {
+    return this.repo.findAll(offset)
   }
 
   public async findByStub(stub: string): Promise<Level> {

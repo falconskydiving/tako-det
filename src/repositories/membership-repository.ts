@@ -25,11 +25,7 @@ export class MembershipRepository {
     return this.transform(row)
   }
 
-  public async findByUser(
-    userId: number,
-    limit: number,
-    offset: number
-  ): Promise<Membership> {
+  public async findByUser(userId: number, offset: number): Promise<Membership> {
     const conn = await this.db.getConnection()
     const row = await conn
       .select()
@@ -37,7 +33,7 @@ export class MembershipRepository {
       .where({ user_id: userId })
       .orderBy('updated', 'DESC')
       .offset(offset)
-      .limit(limit)
+      // .limit(limit)
       .first()
 
     return this.transform(row)
@@ -87,7 +83,8 @@ export class MembershipRepository {
       .where({ user_id: userId })
 
     if (result === 0) {
-      throw new NotFoundError('Membership does not exist')
+      // throw new NotFoundError('Membership does not exist')
+      console.log('Membership does not exist - debug')
     }
   }
 

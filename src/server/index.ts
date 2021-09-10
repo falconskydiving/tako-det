@@ -12,8 +12,10 @@ import * as level from './levels'
 import * as member from './members'
 import * as membership from './memberships'
 import * as middlewares from './middlewares'
+import * as orders from './orders'
 import * as product from './products'
 import * as webhooks from './webhooks'
+
 const cors = require('@koa/cors')
 
 import * as user from './users'
@@ -91,6 +93,7 @@ export function createServer(container: ServiceContainer): AppServer {
   member.init(app, container)
   product.init(app, container)
   webhooks.init(app)
+  orders.init(app)
   return appSrv
 }
 require('./webhooks/create')

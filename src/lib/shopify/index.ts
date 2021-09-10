@@ -180,6 +180,19 @@ export class ShopifyAPI {
     }
   }
 
+  public async getProductsByCollectionId(collectionId): Promise<any> {
+    try {
+      const requestOptions = {
+        method: 'get',
+        url: `/products.json?collection_id=${collectionId}&limit=250`
+      }
+      const response = await this.instance(requestOptions)
+      return response.data.products
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   public async updateProduct(product: Product): Promise<any> {
     try {
       const requestOptions = {
@@ -189,6 +202,75 @@ export class ShopifyAPI {
       }
       const response = await this.instance(requestOptions)
       return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  public async getOrders(customerId: number): Promise<any> {
+    try {
+      const requestOptions = {
+        method: 'get',
+        url: `customers/${customerId}/orders.json?status=any`
+      }
+      const response = await this.instance(requestOptions)
+      return response.data.orders
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  public async getProductMetafields(productId): Promise<any> {
+    try {
+      const requestOptions = {
+        method: 'get',
+        url: `/products/${productId}/metafields.json`
+      }
+      const response = await this.instance(requestOptions)
+      return response.data.metafields
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  public async getDiscountCode(): Promise<any> {
+    try {
+      const requestOptions = {
+        method: 'get',
+        url: `/discount_codes/lookup.json?code=DETMEMBERSHIP`
+      }
+      const response = await this.instance(requestOptions)
+      return response.data.discount_code
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  public async getPriceRule(priceRuleId): Promise<any> {
+    try {
+      const requestOptions = {
+        method: 'get',
+        url: `/price_rules/${priceRuleId}.json`
+      }
+      const response = await this.instance(requestOptions)
+      return response.data.price_rule
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  public async updatePriceRule(
+    priceRuleId,
+    availableMonthlyCredit
+  ): Promise<any> {
+    try {
+      const requestOptions = {
+        method: 'put',
+        url: `/price_rules/${priceRuleId}.json`,
+        data: {
+          price_rule: {
+            value: availableMonthlyCredit
+          }
+        }
+      }
+      const response = await this.instance(requestOptions)
+      return response.data.price_rule
     } catch (error) {
       console.error(error)
     }

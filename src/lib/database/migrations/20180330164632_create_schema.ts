@@ -29,6 +29,7 @@ export function up(db: knex) {
         table.string('last_name', 64).notNullable()
         table.bigInteger('shopify_id').notNullable()
         table.bigInteger('recharge_id').notNullable()
+        table.float('available_monthly_credit').notNullable()
         table.dateTime('created').notNullable()
         table.dateTime('updated').notNullable()
       })
@@ -84,6 +85,7 @@ export function up(db: knex) {
           password,
           shopify_id: 1234123,
           recharge_id: 1234123,
+          available_monthly_credit: 14.99,
           created: new Date(),
           updated: new Date()
         }
@@ -93,7 +95,7 @@ export function up(db: knex) {
       return db('level').insert([
         {
           name: 'INSIDER ACCESS TIER',
-          stub: 'subscription:insider',
+          stub: 'insider',
           number_of_users: 'Single Teacher',
           monthly_price: 14.99,
           annual_price: 164.89,
@@ -108,7 +110,7 @@ export function up(db: knex) {
         },
         {
           name: 'ELITE ACCESS TIER',
-          stub: 'subscription:elite',
+          stub: 'elite',
           number_of_users: 'Multiple Teachers',
           monthly_price: 29.99,
           annual_price: 329.89,
@@ -131,7 +133,7 @@ export function up(db: knex) {
         },
         {
           name: 'TEAM ACCESS TIER',
-          stub: 'subscription:team',
+          stub: 'team',
           number_of_users: 'Single Teacher',
           monthly_price: 0,
           annual_price: 0,

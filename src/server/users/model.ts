@@ -7,6 +7,7 @@ export interface CreateUser {
   lastName: string
   shopifyId: number
   rechargeId: number
+  availableMonthlyCredit: number
   level?: string
 }
 
@@ -16,6 +17,7 @@ export class UserModel {
   public firstName: string
   public lastName: string
   public shopifyId: number
+  public availableMonthlyCredit: number
   public shopify: object
   public level?: object
   public membership?: object
@@ -28,6 +30,7 @@ export class UserModel {
     this.firstName = user.firstName
     this.lastName = user.lastName
     this.shopifyId = user.shopifyId
+    this.availableMonthlyCredit = user.availableMonthlyCredit
     this.level = user.level
     this.membership = user.membership
     this.shopify = user.shopify

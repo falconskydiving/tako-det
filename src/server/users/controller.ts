@@ -60,13 +60,11 @@ export class UserController {
 
     // const user = await this.manager.findByEmail(ctx.state.user.email)
     const user = await this.manager.findByEmail(userDto.email)
-    // console.log(user)
     // return
-    const level = await this.levelManager.findByStub(userDto.level)
+    const level = await this.levelManager.findByStub(userDto.level.stub)
     const membership = new MembershipModel(
       await this.membershipManager.findUserMemberships(user.id)
     )
-
     membership.userId = user.id
     membership.levelId = level.id
     membership.statistics = userDto.membership.statistics
@@ -74,20 +72,18 @@ export class UserController {
     const updatedMembership = await this.membershipManager.update(
       membership as Membership
     )
-
     user.firstName = userDto.firstName
     user.lastName = userDto.lastName
-    user.shopifyId = userDto.shopifyId
+    user.shopifyId = Number(userDto.shopifyId)
+    user.availableMonthlyCredit = Number(userDto.availableMonthlyCredit)
     user.shopify = userDto.shopify
     user.level = level
     user.membership = updatedMembership
-
     const updatedUser = await this.manager.update(user)
     const updatedShopifyUser = await this.shopifyApi.updateCustomer(
       user.shopifyId,
       user.shopify
     )
-
     updatedUser.shopify = updatedShopifyUser
 
     ctx.body = new UserModel(updatedUser)
@@ -116,11 +112,10 @@ export class UserController {
     ctx.status = 200
   }
 
-  public async getAll(ctx: Context) {
+  public async getAll() {
     // const authUser: AuthUser = ctx.state.user
     const users = await this.manager.findAll()
-    ctx.body = users
-    ctx.status = 200
+    return users
   }
 
   public async getUser(ctx: Context) {
@@ -137,10 +132,26 @@ export class UserController {
     ctx.body = new UserModel(user)
     ctx.status = 200
   }
-
   public async delete(ctx: Context) {
     await this.manager.delete(ctx.params.id)
 
     ctx.status = 204
+  }
+  public async updateDiscountPrice(customerId, totalPrice) {
+    const discountCode = await this.shopifyApi.getDiscountCode()
+    console.log('discountCode => ', discountCode)
+    const priceRuleId = discountCode.price_rule_id
+    console.log('priceRuleId => ', priceRuleId)
+    // const priceRule = await this.shopifyApi.getPriceRule(priceRuleId)
+    const user = await this.manager.findByShopifyId(customerId)
+    console.log('user => ', user)
+    const availableMonthlyCredit =
+      user.availableMonthlyCredit + (totalPrice * 0.15) / 100
+    console.log(availableMonthlyCredit)
+    await this.shopifyApi.updatePriceRule(
+      priceRuleId,
+      availableMonthlyCredit * -1
+    )
+    return availableMonthlyCredit
   }
 }

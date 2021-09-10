@@ -2,6 +2,7 @@ import { Level } from '../../entities'
 
 export interface CreateLevel {
   name: string
+  stub: string
   numberOfUsers: string
   monthlyPrice: number
   annualPrice: number
@@ -16,6 +17,7 @@ export interface CreateLevel {
 export class LevelModel {
   public id?: number
   public name: string
+  public stub: string
   public numberOfUsers: string
   public monthlyPrice: number
   public annualPrice: number
@@ -31,6 +33,7 @@ export class LevelModel {
   constructor(level: Level) {
     this.id = level.id
     this.name = level.name
+    this.stub = level.stub
     this.numberOfUsers = level.numberOfUsers
     this.monthlyPrice = level.monthlyPrice
     this.annualPrice = level.annualPrice

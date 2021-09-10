@@ -13,6 +13,7 @@ export interface User {
   recharge?: any
   membership?: any
   level?: any
+  availableMonthlyCredit: number
   created: Date
   updated: Date
 }

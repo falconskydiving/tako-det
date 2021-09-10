@@ -20,10 +20,20 @@ export function init(server: Koa, container: ServiceContainer) {
 
   router.get(
     '/',
-    middleware.authentication(container.lib.authenticator),
-    middleware.authorization([Role.user, Role.admin]),
+    // middleware.authentication(container.lib.authenticator),
+    // middleware.authorization([Role.user, Role.admin]),
     async ctx => {
-      ctx.body = await shopifyApi.getProducts()
+      const collectionId = ctx.request.query.collection_id || ''
+      if (collectionId !== '') {
+        ctx.body = await shopifyApi.getProductsByCollectionId(collectionId)
+      } else {
+        const productId = ctx.request.query.product_id_metafields || ''
+        if (productId !== '') {
+          ctx.body = await shopifyApi.getProductMetafields(productId)
+        } else {
+          ctx.body = await shopifyApi.getProducts()
+        }
+      }
     }
   )
 

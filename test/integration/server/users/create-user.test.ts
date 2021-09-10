@@ -16,7 +16,8 @@ describe('POST /api/v1/users', () => {
       lastName: 'test',
       password: '123123123',
       shopifyId: 1234123,
-      rechargeId: 123123
+      rechargeId: 123123,
+      availableMonthlyCredit: 14.99
     }
 
     const res = await supertest(testServer)
@@ -30,7 +31,8 @@ describe('POST /api/v1/users', () => {
       firstName: 'super',
       lastName: 'test',
       shopifyId: 1234123,
-      rechargeId: 123123
+      rechargeId: 123123,
+      availableMonthlyCredit: 14.99
     })
   })
 
@@ -41,7 +43,8 @@ describe('POST /api/v1/users', () => {
       lastName: 'test',
       password: '123123123',
       shopifyId: 1234123,
-      rechargeId: 123123
+      rechargeId: 123123,
+      availableMonthlyCredit: 14.99
     }
 
     let res = await supertest(testServer)

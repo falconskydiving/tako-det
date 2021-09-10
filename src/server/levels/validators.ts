@@ -2,6 +2,7 @@ import * as Joi from 'joi'
 
 export const updateLevel: Joi.SchemaMap = {
   name: Joi.string().required(),
+  stub: Joi.string().required(),
   numberOfUsers: Joi.string().required(),
   monthlyPrice: Joi.number().required(),
   annualPrice: Joi.number().required(),
@@ -15,6 +16,7 @@ export const updateLevel: Joi.SchemaMap = {
 
 export const createLevel: Joi.SchemaMap = {
   name: Joi.string().required(),
+  stub: Joi.string().required(),
   numberOfUsers: Joi.string().required(),
   monthlyPrice: Joi.number().required(),
   annualPrice: Joi.number().required(),

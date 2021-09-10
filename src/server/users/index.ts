@@ -24,7 +24,18 @@ export function init(server: Koa, container: ServiceContainer) {
   )
 
   router.get('/:id', controller.getUser.bind(controller))
-  router.get('/', bodyParser(), controller.getAll.bind(controller))
+  // router.get('/', bodyParser(), controller.getAll.bind(controller))
+  router.get('/', bodyParser(), async ctx => {
+    const customerId = ctx.request.query.customer_id_discount || ''
+    if (customerId !== '') {
+      const totalPrice = ctx.request.query.total_price
+      ctx.body = await controller.updateDiscountPrice(customerId, totalPrice)
+      ctx.status = 200
+    } else {
+      ctx.body = await controller.getAll()
+      ctx.status = 200
+    }
+  })
   router.post(
     '/',
     bodyParser(),
@@ -44,7 +55,7 @@ export function init(server: Koa, container: ServiceContainer) {
     bodyParser(),
     // middleware.authentication(container.lib.authenticator),
     // middleware.authorization([Role.user, Role.admin]),
-    middleware.validate({ request: { body: validators.updateUser } }),
+    // middleware.validate({ request: { body: validators.updateUser } }),
     controller.update.bind(controller)
   )
 

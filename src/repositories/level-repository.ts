@@ -40,14 +40,14 @@ export class LevelRepository {
     return this.transform(row)
   }
 
-  public async findAll(limit: number, offset: number): Promise<Level[]> {
+  public async findAll(offset: number): Promise<Level[]> {
     const conn = await this.db.getConnection()
     const results = await conn
       .select()
       .from(this.TABLE)
       .orderBy('updated', 'DESC')
       .offset(offset)
-      .limit(limit)
+    // .limit(limit)
 
     return results.map((r: any) => this.transform(r))
   }
@@ -59,6 +59,7 @@ export class LevelRepository {
     const conn = await this.db.getConnection()
     const result = await conn.table(this.TABLE).insert({
       name: level.name,
+      stub: level.stub,
       number_of_users: level.numberOfUsers,
       monthly_price: level.monthlyPrice,
       annual_price: level.annualPrice,
@@ -87,6 +88,7 @@ export class LevelRepository {
       .table(this.TABLE)
       .update({
         name: level.name,
+        stub: level.stub,
         number_of_users: level.numberOfUsers,
         monthly_price: level.monthlyPrice,
         annual_price: level.annualPrice,
